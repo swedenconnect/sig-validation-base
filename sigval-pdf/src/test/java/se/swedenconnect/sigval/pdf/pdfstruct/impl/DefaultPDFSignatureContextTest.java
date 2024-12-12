@@ -30,17 +30,21 @@ import static org.junit.jupiter.api.Assertions.*;
 class DefaultPDFSignatureContextTest {
 
   static byte[] pdfDocBytes;
+  static byte[] hideTextPdfBytes;
 
   @BeforeAll
   static void init() throws Exception {
     try(InputStream pdfStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("test-doc.pdf")) {
       pdfDocBytes = IOUtils.toByteArray(pdfStream);
     }
+    try(InputStream resourceAsStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("hideQF1.pdf")){
+      hideTextPdfBytes = IOUtils.toByteArray(resourceAsStream);
+    }
   }
 
   @Test
   void testSignatureContext() throws Exception {
-    DefaultPDFSignatureContext signatureContext = new DefaultPDFSignatureContext(pdfDocBytes, new DefaultGeneralSafeObjects());
+    DefaultPDFSignatureContext signatureContext = new DefaultPDFSignatureContext(hideTextPdfBytes, new DefaultGeneralSafeObjects());
 
   }
 
